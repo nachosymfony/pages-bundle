@@ -1,0 +1,31 @@
+services:
+    add_form:
+        class: nacholibre\PagesBundle\Form\InfoPageType
+        arguments: ['@service_container']
+        tags:
+            - { name: form.type }
+
+    nacholibre.pages.manager:
+        class: nacholibre\PagesBundle\Services\PagesManager
+        arguments: ['@doctrine.orm.entity_manager', '%nacholibre_pages%']
+        tags:
+            - { name: form.type }
+
+    info_page.subscriber:
+        class: nacholibre\PagesBundle\EventListener\InfoPageSubscriber
+        arguments: ['@service_container']
+        tags:
+            - { name: doctrine.event_subscriber, connection: default }
+
+    app.twig_extension_pages:
+        class: nacholibre\PagesBundle\Twig\AppExtension
+        public: false
+        arguments: ['@service_container']
+        tags:
+            - { name: twig.extension }
+
+    app.routing_loader_pages:
+        class: nacholibre\PagesBundle\Routing\PagesLoader
+        arguments: ['@service_container']
+        tags:
+            - { name: routing.loader }

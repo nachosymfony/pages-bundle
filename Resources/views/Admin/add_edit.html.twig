@@ -1,0 +1,16 @@
+{% extends "nacholibreAdminBundle::layout.html.twig" %}
+
+{% block pageHeaderTitle headerTitle | trans %}
+
+{% block content %}
+{{ parent() }}
+<div class="row">
+    <div class='col-md-12 col-lg-8'>
+    {{ form_start(form) }}
+        {{ form_widget(form) }}
+        <hr>
+        <input type="submit" value="{{ 'Save' | trans }}" class="btn btn-default btn-primary btn-lg" />
+    {{ form_end(form) }}
+    </div>
+</div>
+{% endblock %}

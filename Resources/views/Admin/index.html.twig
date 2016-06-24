@@ -1,0 +1,8 @@
+{% extends "nacholibreAdminBundle::layout.html.twig" %}
+
+{% block pageHeaderTitle 'Pages' | trans %}
+
+{% block content %}
+{{ parent() }}
+{% include "nacholibrePagesBundle:Admin:_show_page.html.twig" %}
+{% endblock %}
