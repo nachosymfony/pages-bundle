@@ -75,7 +75,7 @@ class PagesController extends Controller {
             $em->persist($page);
             $em->flush();
 
-            return $this->redirectToRoute('nacholibre.info-page.admin.edit', array('id' => $page->getId()));
+            return $this->redirectToRoute('nacholibre.info_page.admin.edit', array('id' => $page->getId()));
         }
 
         return $this->render('nacholibrePagesBundle:Admin:add_edit.html.twig', [

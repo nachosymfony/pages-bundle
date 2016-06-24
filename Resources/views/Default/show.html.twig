@@ -1,12 +1,24 @@
-{% extends "@App/layout.html.twig" %}
+{% extends "@App/page.html.twig" %}
 
+{% block title page.name %}
+
+{% block pageHeaderTitle page.name %}
+
+{% block pageContent %}
+{{ page.content | raw }}
+{% endblock %}
+
+{#
 {% block title %}
 {{ page.name }}
 {{ parent() }}
 {% endblock %}
+#}
 
+{#
 {% block content %}
 <h1>{{ page.name }}</h1>
 <hr>
 {{ page.content | raw }}
 {% endblock %}
+#}
