@@ -12,7 +12,7 @@ class AppExtension extends \Twig_Extension {
         ];
     }
 
-    public function pageLink($page) {
+    public function pageLink($slug) {
         $router = $this->container->get('router');
 
         $parameters = $this->container->getParameter('nacholibre_pages');
@@ -21,7 +21,7 @@ class AppExtension extends \Twig_Extension {
         switch($type) {
         case "slug":
             $url = $router->generate('nacholibre.info_page.show', [
-                'slug' => $page->getSlug(),
+                'slug' => $slug,
             ]);
             break;
         //case "slug_id":
