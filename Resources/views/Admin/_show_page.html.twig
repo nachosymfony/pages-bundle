@@ -24,12 +24,12 @@
                             <tr>
                                 <td>{{ page.getID() }}</td>
                                 <td>{{ page.getName() }}</td>
-                                <td>{{ nacholibre_info_page_link(page) }}</td>
+                                <td>{{ nacholibre_info_page_link(page.getSlug()) }}</td>
                                 <td>{{ page.getDateCreated() | date('Y-m-d') }}</td>
                                 <td>{{ page.getDateModified() | date('Y-m-d') }}</td>
                                 <td>
                                     {{ macros.renderEntryActionButtons(
-                                        nacholibre_info_page_link(page),
+                                        nacholibre_info_page_link(page.getSlug()),
                                         path('nacholibre.info_page.admin.edit', {'id': page.id}),
                                         path('nacholibre.info_page.admin.delete', {'id': page.id})
                                     ) }}
