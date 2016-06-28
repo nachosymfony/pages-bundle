@@ -48,6 +48,7 @@ class Configuration implements ConfigurationInterface
                         ->scalarNode('elfinder_homefolder')->defaultValue('')->end()
                     ->end()
                 ->end()
+                ->booleanNode('allow_add')->defaultTrue()->end()
         ;
 
         return $treeBuilder;

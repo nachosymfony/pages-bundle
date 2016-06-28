@@ -1,7 +1,9 @@
 {% import 'nacholibreAdminBundle::macros.html.twig' as macros %}
 
+{% if allowAdd %}
 <a href='{{ path('nacholibre.info_page.admin.new') }}' class='btn btn-primary btn-lg'>{{ 'Add' | trans }}</a>
 <hr>
+{% endif %}
 
 <div class="row">
     <div class="col-lg-12">
@@ -28,10 +30,13 @@
                                 <td>{{ page.getDateCreated() | date('Y-m-d') }}</td>
                                 <td>{{ page.getDateModified() | date('Y-m-d') }}</td>
                                 <td>
+                                    {% set deletable = page.getStatic() == false %}
+
                                     {{ macros.renderEntryActionButtons(
                                         nacholibre_info_page_link(page.getSlug()),
                                         path('nacholibre.info_page.admin.edit', {'id': page.id}),
-                                        path('nacholibre.info_page.admin.delete', {'id': page.id})
+                                        path('nacholibre.info_page.admin.delete', {'id': page.id}),
+                                        deletable
                                     ) }}
                                 </td>
                             </tr>

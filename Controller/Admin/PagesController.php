@@ -20,8 +20,11 @@ class PagesController extends Controller {
 
         $pages = $repo->findAll();
 
+        $allowAdd = $this->getParameter('nacholibre_pages')['allow_add'];
+
         return $this->render('nacholibrePagesBundle:Admin:index.html.twig', [
             'pages' => $pages,
+            'allowAdd' => $allowAdd,
         ]);
     }
 
