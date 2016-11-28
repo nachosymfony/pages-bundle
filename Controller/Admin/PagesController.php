@@ -22,6 +22,19 @@ class PagesController extends Controller {
 
         $allowAdd = $this->getParameter('nacholibre_pages')['allow_add'];
 
+        //$pagesManager = $this->get('nacholibre.pages.manager');
+
+        //$repository = $em->getRepository('Gedmo\\Translatable\\Entity\\Translation');
+
+        //$page = $pagesManager->createPage();
+        //$page->setName('aaaaaadddddddd');
+        //$page->setTranslatableLocale('en_en');
+
+        //$repository->translate($page, 'name', 'bg', 'name bg');
+
+        //$em->persist($page);
+        //$em->flush();
+
         return $this->render('nacholibrePagesBundle:Admin:index.html.twig', [
             'pages' => $pages,
             'allowAdd' => $allowAdd,
@@ -43,7 +56,9 @@ class PagesController extends Controller {
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
 
-            $page = $form->getData();
+            //$page = $form->getData();
+
+            $page->setTranslatableLocale('en_en');
 
             $em->persist($page);
             $em->flush();
@@ -73,7 +88,7 @@ class PagesController extends Controller {
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
 
-            $page = $form->getData();
+            //$page = $form->getData();
 
             $em->persist($page);
             $em->flush();

@@ -49,6 +49,14 @@ class InfoPageType extends AbstractType
                 'label' => 'Content',
                 'required' => true,
             ]);
+
+            $builder->add('content_bg', 'Ivory\CKEditorBundle\Form\Type\CKEditorType' , [
+                'config_name' => $editor['config_name'],
+                'config' => $editorConfig,
+                'label' => 'Content BG',
+                'required' => true,
+                'mapped' => false,
+            ]);
         } else {
             $builder->add('content', TextareaType::class , [
                 'label' => 'Content',

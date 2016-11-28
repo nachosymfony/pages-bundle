@@ -5,6 +5,7 @@ namespace nacholibre\PagesBundle\Model;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Gedmo\Mapping\Annotation as Gedmo;
+use Gedmo\Translatable\Translatable;
 
 /**
  * @ORM\MappedSuperclass
@@ -23,8 +24,7 @@ class InfoPage
     protected $id;
 
     /**
-     * @var string
-     *
+     * @Gedmo\Translatable
      * @ORM\Column(name="name", type="string", unique=true, length=255)
      */
     protected $name;
@@ -43,7 +43,7 @@ class InfoPage
 
     /**
      * @var string
-     *
+     * @Gedmo\Translatable
      * @ORM\Column(name="content", type="text", nullable=true)
      */
     protected $content;
@@ -59,6 +59,13 @@ class InfoPage
      * @ORM\Column(name="modified", type="datetime")
      */
     protected $dateModified;
+
+    /**
+     * @Gedmo\Locale
+     * Used locale to override Translation listener`s locale
+     * this is not a mapped field of entity metadata, just a simple property
+     */
+    private $locale;
 
     function __construct() {
         if (!$this->getDateCreated()) {
@@ -218,5 +225,10 @@ class InfoPage
         $this->dateModified = $dateModified;
 
         return $this;
+    }
+
+    public function setTranslatableLocale($locale)
+    {
+        $this->locale = $locale;
     }
 }
