@@ -27,9 +27,15 @@ class InfoPageType extends AbstractType
         $editor = $parameters['editor'];
 
         $builder->add('name', TextType::class, [
-                'label' => 'Name',
-                'required' => true,
-            ]);
+            'label' => 'Name',
+            'required' => true,
+        ]);
+
+        $builder->add('name_en', TextType::class, [
+            'label' => 'Name',
+            'required' => true,
+            'mapped' => false,
+        ]);
 
         if ($editor['name'] == 'ckeditor') {
             $editorConfig = [
@@ -50,10 +56,10 @@ class InfoPageType extends AbstractType
                 'required' => true,
             ]);
 
-            $builder->add('content_bg', 'Ivory\CKEditorBundle\Form\Type\CKEditorType' , [
+            $builder->add('content_en', 'Ivory\CKEditorBundle\Form\Type\CKEditorType' , [
                 'config_name' => $editor['config_name'],
                 'config' => $editorConfig,
-                'label' => 'Content BG',
+                'label' => 'Content',
                 'required' => true,
                 'mapped' => false,
             ]);
