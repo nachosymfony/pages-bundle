@@ -6,16 +6,21 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Ivory\CKEditorBundle\Form\Type\CKEditorType;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
+use nacholibre\DoctrineTranslatableFormBundle\Form\AbstractTranslatableType;
+use nacholibre\DoctrineTranslatableFormBundle\Form\TranslatableTextType;
+use nacholibre\DoctrineTranslatableFormBundle\Form\TranslatableTextareaType;
 
-class InfoPageType extends AbstractType
+class InfoPageType extends AbstractTranslatableType
 {
     private $container;
 
-    function __construct($container) {
+    function __construct($container, $mapper) {
         $this->container = $container;
+        parent::__construct($mapper);
     }
     /**
      * @param FormBuilderInterface $builder
@@ -26,16 +31,24 @@ class InfoPageType extends AbstractType
         $parameters = $this->container->getParameter('nacholibre_pages');
         $editor = $parameters['editor'];
 
-        $builder->add('name', TextType::class, [
-            'label' => 'Name',
-            'required' => true,
-        ]);
+        $translatableBuilder = $this->createTranslatableMapper($builder, $options);
 
-        $builder->add('name_en', TextType::class, [
-            'label' => 'Name',
-            'required' => true,
-            'mapped' => false,
-        ]);
+        $translatableBuilder
+            ->add("name", TextType::class, [
+                'required' => true,
+            ])
+        ;
+
+        //$builder->add('name', TextType::class, [
+        //    'label' => 'Name',
+        //    'required' => true,
+        //]);
+
+        //$builder->add('name_en', TextType::class, [
+        //    'label' => 'Name',
+        //    'required' => true,
+        //    'mapped' => false,
+        //]);
 
         if ($editor['name'] == 'ckeditor') {
             $editorConfig = [
@@ -49,26 +62,29 @@ class InfoPageType extends AbstractType
                 ];
             }
 
-            $builder->add('content', 'Ivory\CKEditorBundle\Form\Type\CKEditorType' , [
-                'config_name' => $editor['config_name'],
-                'config' => $editorConfig,
-                'label' => 'Content',
-                'required' => true,
-            ]);
+            //$builder->add('content', 'Ivory\CKEditorBundle\Form\Type\CKEditorType' , [
+            //    'config_name' => $editor['config_name'],
+            //    'config' => $editorConfig,
+            //    'label' => 'Content',
+            //    'required' => true,
+            //]);
 
-            $builder->add('content_en', 'Ivory\CKEditorBundle\Form\Type\CKEditorType' , [
+            $translatableBuilder->add('content', 'Ivory\CKEditorBundle\Form\Type\CKEditorType' , [
                 'config_name' => $editor['config_name'],
                 'config' => $editorConfig,
                 'label' => 'Content',
                 'required' => true,
-                'mapped' => false,
             ]);
         } else {
-            $builder->add('content', TextareaType::class , [
+            $translatableBuilder->add('content', TextareaType::class , [
                 'label' => 'Content',
                 'required' => true,
             ]);
         }
+
+        $builder->add('desc2', TextType::class, [
+            'label' => 'test',
+        ]);
 
         $builder->addEventListener(FormEvents::PRE_SET_DATA, function(FormEvent $event) {
             $data = $event->getData();
@@ -98,5 +114,7 @@ class InfoPageType extends AbstractType
         $resolver->setDefaults(array(
             'data_class' => $dataClass
         ));
+
+        $this->configureTranslationOptions($resolver);
     }
 }

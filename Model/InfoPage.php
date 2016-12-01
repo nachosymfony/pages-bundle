@@ -37,6 +37,7 @@ class InfoPage
     /**
      * @var string
      *
+     * @Gedmo\Translatable
      * @ORM\Column(name="slug", type="string", length=255)
      */
     protected $slug;
@@ -47,6 +48,11 @@ class InfoPage
      * @ORM\Column(name="content", type="text", nullable=true)
      */
     protected $content;
+
+    /**
+    * @ORM\Column(name="desc2", type="text")
+    */
+    protected $desc2;
 
     /**
      * @var \DateTime

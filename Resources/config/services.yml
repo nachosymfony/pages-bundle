@@ -1,7 +1,13 @@
 services:
     add_form:
         class: nacholibre\PagesBundle\Form\InfoPageType
-        arguments: ['@service_container']
+        arguments:
+            - "@service_container"
+            - "@nacholibre_doctrine_translatable_form_bundle.mapper"
+        calls:
+            - [ setRequiredLocale, [%locale%] ]
+            - [ setLocales, [%locales%] ]
+              #- [ setMapExistingDataTo, [%locale%] ]
         tags:
             - { name: form.type }
 
