@@ -13,6 +13,7 @@ use Symfony\Component\Form\FormEvents;
 use nacholibre\DoctrineTranslatableFormBundle\Form\AbstractTranslatableType;
 use nacholibre\DoctrineTranslatableFormBundle\Form\TranslatableTextType;
 use nacholibre\DoctrineTranslatableFormBundle\Form\TranslatableTextareaType;
+use Symfony\Component\Validator\Constraints as Assert;
 
 class InfoPageType extends AbstractTranslatableType
 {
@@ -33,9 +34,18 @@ class InfoPageType extends AbstractTranslatableType
 
         $translatableBuilder = $this->createTranslatableMapper($builder, $options);
 
+        $translator = $this->container->get('translator');
+
         $translatableBuilder
             ->add("name", TextType::class, [
+                'label' => $translator->trans('name'),
                 'required' => true,
+                //'constraints' => [
+                //    new Assert\NotBlank(),
+                //],
+                'constraints_required_locales' => [
+                    new Assert\NotBlank(),
+                ],
             ])
         ;
 
@@ -72,13 +82,19 @@ class InfoPageType extends AbstractTranslatableType
             $translatableBuilder->add('content', 'Ivory\CKEditorBundle\Form\Type\CKEditorType' , [
                 'config_name' => $editor['config_name'],
                 'config' => $editorConfig,
-                'label' => 'Content',
+                'label' => $translator->trans('content'),
                 'required' => true,
+                //'constraints' => [
+                //    new Assert\NotBlank(),
+                //]
             ]);
         } else {
             $translatableBuilder->add('content', TextareaType::class , [
-                'label' => 'Content',
+                'label' => $translator->trans('content'),
                 'required' => true,
+                //'constraints' => [
+                //    new Assert\NotBlank(),
+                //]
             ]);
         }
 
