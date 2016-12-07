@@ -15,6 +15,8 @@ use nacholibre\DoctrineTranslatableFormBundle\Form\TranslatableTextType;
 use nacholibre\DoctrineTranslatableFormBundle\Form\TranslatableTextareaType;
 use Symfony\Component\Validator\Constraints as Assert;
 
+use nacholibre\DoctrineTranslatableFormBundle\Form\DynamicSlugType;
+
 class InfoPageType extends AbstractTranslatableType
 {
     private $container;
@@ -46,6 +48,13 @@ class InfoPageType extends AbstractTranslatableType
                 'constraints_required_locales' => [
                     new Assert\NotBlank(),
                 ],
+            ])
+            ->add('slug', DynamicSlugType::class, [
+                'label' => 'Slug',
+                'required' => true,
+                'slug_input' => 'name',
+                'toggable' => false,
+                //'disabled' => true,
             ])
         ;
 
@@ -98,18 +107,14 @@ class InfoPageType extends AbstractTranslatableType
             ]);
         }
 
-        $builder->add('desc2', TextType::class, [
-            'label' => 'test',
-        ]);
+        //$builder->addEventListener(FormEvents::PRE_SET_DATA, function(FormEvent $event) {
+        //    $data = $event->getData();
+        //    $form = $event->getForm();
 
-        $builder->addEventListener(FormEvents::PRE_SET_DATA, function(FormEvent $event) {
-            $data = $event->getData();
-            $form = $event->getForm();
-
-            if ($data->getStatic()) {
-                $this->disableField($form->get('name'));
-            }
-        });
+        //    if ($data->getStatic()) {
+        //        $this->disableField($form->get('name'));
+        //    }
+        //});
     }
 
     private function disableField($field) {

@@ -9,7 +9,6 @@ use Gedmo\Translatable\Translatable;
 
 /**
  * @ORM\MappedSuperclass
- * @ORM\Table(name="info_page", uniqueConstraints={@ORM\UniqueConstraint(name="slug", columns={"slug"})})
  * @UniqueEntity("name")
  */
 class InfoPage
@@ -35,10 +34,8 @@ class InfoPage
     protected $static = false;
 
     /**
-     * @var string
-     *
      * @Gedmo\Translatable
-     * @ORM\Column(name="slug", type="string", length=255)
+     * @ORM\Column(length=128, unique=true)
      */
     protected $slug;
 
@@ -50,18 +47,11 @@ class InfoPage
     protected $content;
 
     /**
-    * @ORM\Column(name="desc2", type="text")
-    */
-    protected $desc2;
-
-    /**
-     * @var \DateTime
      * @ORM\Column(name="created", type="datetime")
      */
     protected $dateCreated;
 
     /**
-     * @var \DateTime
      * @ORM\Column(name="modified", type="datetime")
      */
     protected $dateModified;

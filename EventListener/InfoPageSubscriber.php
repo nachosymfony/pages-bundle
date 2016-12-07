@@ -42,14 +42,61 @@ class InfoPageSubscriber implements EventSubscriber {
 
     public function index(LifecycleEventArgs $args)
     {
-        $post = $args->getEntity();
+        $entity = $args->getEntity();
+
+        //if ($entity instanceof \Gedmo\Translatable\Entity\MappedSuperclass\AbstractTranslation) {
+        //    print_R($entity);
+        //    return;
+        //    $em = $args->getEntityManager();
+
+        //    $translationEntity = $entity;
+        //    if ($entity->getObjectClass() == $this->postClass) {
+        //        if (@$entity->__toBePersisted) {
+        //            return;
+        //        }
+        //        print_R($entity);
+
+        //        if ($entity->getField() == 'name') {
+        //            $slugTrans = new \Gedmo\Translatable\Entity\Translation;
+        //            $slugTrans->setLocale('en3');
+        //            $slugTrans->setObjectClass($this->postClass);
+        //            $slugTrans->setField('slug');
+        //            $slugTrans->setForeignKey($translationEntity->getForeignKey());
+
+        //            $slug = $this->slugger->slugify($entity->getContent());
+        //            $slugTrans->setContent($slug);
+        //            $slugTrans->__toBePersisted = 1;
+        //            $em->persist($slugTrans);
+        //            $em->flush();
+        //        }
+        //    }
+        //    //print_R($translationEntity);
+        //    //echo 'persist translation';
+        //    //exit;
+        //}
 
         // perhaps you only want to act on some "Product" entity
-        if ($post instanceof $this->postClass) {
+        if ($entity instanceof $this->postClass) {
+            $post = $entity;
+            //if (@$post->__translated) {
+            //    return;
+            //}
             $post->setDateModified(new \Datetime());
-            $slug = $this->slugger->slugify($post->getName());
-            $post->setSlug($slug);
-            //$entityManager = $args->getEntityManager();
+            $em = $args->getEntityManager();
+
+            //if (!$post->getStatic()) {
+            //    $slug = $this->slugger->slugify($post->getName());
+            //    $post->setSlug($slug);
+            //}
+
+            //if ($post instanceof \Gedmo\Translatable\Translatable) {
+            //    $repository = $em->getRepository('Gedmo\\Translatable\\Entity\\Translation');
+            //    $repository->translate($post, 'slug', 'en', $slug);
+            //    $post->__translated = 1;
+            //    $em->persist($post);
+            //    $em->flush();
+            //}
+
             // ... do something with the Product
         }
     }
