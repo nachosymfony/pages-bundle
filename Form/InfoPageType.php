@@ -15,7 +15,7 @@ use nacholibre\DoctrineTranslatableFormBundle\Form\TranslatableTextType;
 use nacholibre\DoctrineTranslatableFormBundle\Form\TranslatableTextareaType;
 use Symfony\Component\Validator\Constraints as Assert;
 
-use nacholibre\DoctrineTranslatableFormBundle\Form\DynamicSlugType;
+use nacholibre\AdminBundle\Form\DynamicSlugType;
 
 class InfoPageType extends AbstractTranslatableType
 {
@@ -25,6 +25,7 @@ class InfoPageType extends AbstractTranslatableType
         $this->container = $container;
         parent::__construct($mapper);
     }
+
     /**
      * @param FormBuilderInterface $builder
      * @param array $options
@@ -54,6 +55,9 @@ class InfoPageType extends AbstractTranslatableType
                 'required' => true,
                 'slug_input' => 'name',
                 'toggable' => false,
+                'constraints_required_locales' => [
+                    new Assert\NotBlank(),
+                ],
                 //'disabled' => true,
             ])
         ;
