@@ -15,9 +15,8 @@
                             <tr>
                                 <th width=60>{{ 'ID' | trans }}</th>
                                 <th>{{ 'Name' | trans }}</th>
-                                <th width=200>{{ 'Address' | trans }}</th>
-                                <th width=140>{{ 'Added on' | trans }}</th>
-                                <th width=140>{{ 'Modified on' | trans }}</th>
+                                <th width=120>{{ 'Added on' | trans }}</th>
+                                <th width=120>{{ 'Modified on' | trans }}</th>
                                 <th width=240>{{ 'Actions' | trans }}</th>
                             </tr>
                         </thead>
@@ -26,7 +25,6 @@
                             <tr>
                                 <td>{{ page.getID() }}</td>
                                 <td>{{ page.getName() }}</td>
-                                <td>{{ nacholibre_info_page_link(page.getSlug()) }}</td>
                                 <td>{{ page.getDateCreated() | date('Y-m-d') }}</td>
                                 <td>{{ page.getDateModified() | date('Y-m-d') }}</td>
                                 <td>

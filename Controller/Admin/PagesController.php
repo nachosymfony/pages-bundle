@@ -18,7 +18,9 @@ class PagesController extends Controller {
         $pagesManager = $this->get('nacholibre.pages.manager');
         $repo = $pagesManager->getRepo();
 
-        $pages = $repo->findAll();
+        $pages = $repo->findBy([], [
+            'id' => 'desc',
+        ]);
 
         $allowAdd = $this->getParameter('nacholibre_pages')['allow_add'];
 

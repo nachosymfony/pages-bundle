@@ -11,8 +11,7 @@ use Gedmo\Translatable\Translatable;
  * @ORM\MappedSuperclass
  * @UniqueEntity("name")
  */
-class InfoPage
-{
+class InfoPage {
     /**
      * @var int
      *
@@ -55,6 +54,20 @@ class InfoPage
      * @ORM\Column(name="modified", type="datetime")
      */
     protected $dateModified;
+
+    /**
+     * @Gedmo\Blameable(on="create")
+     * @ORM\ManyToOne(targetEntity="FOS\UserBundle\Model\UserInterface")
+     * @ORM\JoinColumn(name="created_by", referencedColumnName="id")
+     */
+    protected $createdBy;
+
+    /**
+     * @Gedmo\Blameable(on="update")
+     * @ORM\ManyToOne(targetEntity="FOS\UserBundle\Model\UserInterface")
+     * @ORM\JoinColumn(name="updated_by", referencedColumnName="id")
+     */
+    protected $updatedBy;
 
     /**
      * @Gedmo\Locale

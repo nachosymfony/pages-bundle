@@ -30,14 +30,15 @@ class InfoPageType extends AbstractTranslatableType
      * @param FormBuilderInterface $builder
      * @param array $options
      */
-    public function buildForm(FormBuilderInterface $builder, array $options)
-    {
+    public function buildForm(FormBuilderInterface $builder, array $options) {
         $parameters = $this->container->getParameter('nacholibre_pages');
         $editor = $parameters['editor'];
 
         $translatableBuilder = $this->createTranslatableMapper($builder, $options);
 
         $translator = $this->container->get('translator');
+
+        $page = $builder->getData();
 
         $translatableBuilder
             ->add("name", TextType::class, [
@@ -54,7 +55,7 @@ class InfoPageType extends AbstractTranslatableType
                 'label' => 'Slug',
                 'required' => true,
                 'slug_input' => 'name',
-                'toggable' => false,
+                'toggable' => $page->getStatic() == false,
                 'constraints_required_locales' => [
                     new Assert\NotBlank(),
                 ],
