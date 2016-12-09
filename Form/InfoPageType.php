@@ -52,7 +52,7 @@ class InfoPageType extends AbstractTranslatableType
                 ],
             ])
             ->add('slug', DynamicSlugType::class, [
-                'label' => 'Slug',
+                'label' => $translator->trans('slug'),
                 'required' => true,
                 'slug_input' => 'name',
                 'toggable' => $page->getStatic() == false,
